@@ -1,14 +1,15 @@
-import React from "react";
-import Movie from "./movie";
+import React, { useEffect } from "react";
 import Review from  "./review";
-import Stars from "./stars";
 
 export default function ReviewList({movie, reviews, setReviews}){
-   
     const filteredReviews = reviews.filter(review => review.movie_id === movie.id)
-    console.log(filteredReviews)
+
+    useEffect(() => {
+        console.log("Reviews updated:", filteredReviews);
+    }, [filteredReviews]);
+
         return (
-         <div key={filteredReviews.length + movie.id}>
-          {filteredReviews && filteredReviews.map((review) => <Review review={review}/>)}  
-          </div>
-    )};
+            <div>
+                {filteredReviews.map((review) => <Review movie={movie} key={review.id} setReviews={setReviews} review={review}/>)}  
+            </div>
+)};

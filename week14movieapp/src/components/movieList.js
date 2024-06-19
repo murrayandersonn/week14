@@ -2,7 +2,8 @@ import React from 'react';
 import Movie from './movie'
 import {useState} from 'react'
 
-export default function MovieList() {
+//List of movies that can be reviewed and rendered
+const MovieList = () => {
     let moviesArray = [
         {
             id: 1,
@@ -42,27 +43,47 @@ export default function MovieList() {
         }];
         
         const [movies, setMovies] = useState(moviesArray)
-        
-        let reviewsArray = [
+    //Array for holding all of the movie reviews
+        const initialReviewsArray = [
             {
-                id: 1,
+                id: 2,
                 movie_id: 1,
+                stars: '★★★★★',
+                name: 'Frank',
+                text: `Independence Day blew me away with its awesome alien battles and Will Smith's badass heroics! Totally epic and definitely worth watching again!`,
+            },
+            {
+                id: 3,
+                movie_id: 2,
                 stars: '★★★★☆',
-                text: 'Very good movie classic sci fi and hacking movie.',
-            }
+                name: 'Jerry',
+                text: `"The Truman Show" captivated me with its thought-provoking premise and Jim Carrey's surprisingly deep performance. A compelling blend of satire and emotional depth that deserves multiple viewings!`,
+            },
+            {
+                id: 4,
+                movie_id: 3,
+                stars: '★★★★★',
+                name: 'Ben',
+                text: `The Dark Knight is a masterpiece of modern cinema, with Heath Ledger's chilling and unforgettable performance as the Joker being the standout. Christian Bale shines as Batman, and the film's gritty realism, complex themes, and exhilarating action sequences make it not just one of the greatest superhero movies ever made, but one of the greatest films of its era.`
+            },
+            {
+                id: 5,
+                movie_id: 4,
+                stars: '★★★★★',
+                name: 'John',
+                text: `Cars is a delightful and visually stunning animated film that perfectly captures the nostalgia and romance of Route 66 and small-town America. With its heartwarming story, lovable characters like Mater the tow truck, and thrilling racing scenes, Cars is a true Pixar classic that entertains both kids and adults alike.`
+            },
         ]
-        const [reviews, setReviews] = useState(reviewsArray)
-        //console.log(reviews)
+        const [reviews, setReviews] = useState(initialReviewsArray);
         return (
-            <div className='container'>
-               {moviesArray.map((movie) =>{
-                return (
-                   <Movie key={movie.id} movie={movie} reviews={reviews} setReviews={setReviews}/>
-                )
-            }) 
-            };
-                
+            //calls movie component with all necessary data
+            <div className="container">
+                {moviesArray.map((movie) => (
+                    <Movie key={movie.id} initialReviewsArray={initialReviewsArray} movie={movie} reviews={reviews} setReviews={setReviews} />
+                ))}
             </div>
+                
         );
     }
 
+export default MovieList;
