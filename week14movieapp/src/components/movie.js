@@ -33,11 +33,11 @@ const Movie = ({ initialReviewsArray, movie, reviews, setReviews }) => {
             <br></br>
           </div>
           <div>
-            <ReviewList movie={movie} reviews={reviews} initialReviewsArray={initialReviewsArray} setReviews={setReviews} />
+            <ReviewList movie={movie} movieId={movie.id} reviews={reviews} initialReviewsArray={initialReviewsArray} setReviews={setReviews} />
           </div>
         </div>
         <div className="card-footer">
-          <ReviewForm reviews={reviews} movie={movie} setReviews={setReviews} image={movie.image} initialReviewsArray={initialReviewsArray}  />
+          <ReviewForm reviews={reviews} movie={movie} setReviews={setReviews} movieId={movie.id} image={movie.image} initialReviewsArray={initialReviewsArray}  />
         </div>
       </div>
     );

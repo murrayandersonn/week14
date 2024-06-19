@@ -1,44 +1,15 @@
 import React, { useState, useEffect } from "react";
-import MovieList from "./movieList";
-import ReviewList from "./reviewList";
+const renderStars = (numStars) => {
+  const starIcons = ['☆', '☆', '☆', '☆', '☆'];
+  for (let i = 0; i < numStars; i++) {
+    starIcons[i] = '★';
+  }
+  return starIcons.join('');
+};
+
 
 
 const ReviewForm = ({ reviews, initialReviewsArray, setReviews, movieId, image }) => {
-  const renderStars = () => {
-    const starIcons = ['☆', '☆', '☆', '☆', '☆'];
-    for (let i = 0; i < reviews.stars; i++) {
-      starIcons[i] = '★';
-    }
-    return starIcons.join('');
-  };
-    const [formData, setFormData] = useState({
-      id: initialReviewsArray.length + 1,
-      movie_id: movieId,
-      stars: '',
-      name: '',
-      text: '',
-    });
-  
-    const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      setReviews((initialReviewsArray) => [...initialReviewsArray, formData]);
-      setFormData({
-        id: initialReviewsArray.length + 2,
-        movie_id: movieId,
-        stars: {renderStars},
-        name: '',
-        text: '',
-      });
-    };
-  useEffect(() => {
-    console.log("REVIEWS updated:", reviews);
-  }, [initialReviewsArray]); 
-  
- 
   const handleStarClick = (numStars) => {
     setFormData({ ...formData, stars: numStars });
   };
@@ -57,7 +28,41 @@ const ReviewForm = ({ reviews, initialReviewsArray, setReviews, movieId, image }
       );
     }
     return stars;
+      
   };
+  
+    const [formData, setFormData] = useState({
+        id: initialReviewsArray.length + 1,
+        movie_id: movieId,
+        stars: 0,
+        name: '',
+        text: '',
+    });
+    
+      const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+      };
+    
+      const handleSubmit = (e) => { 
+        e.preventDefault();
+
+        const starString = renderStars(formData.stars); // Convert stars to a string of symbols
+        setReviews((initialReviewsArray) => [...initialReviewsArray, { ...formData, stars: starString }]);
+        setFormData({
+          id: initialReviewsArray.length + 2,
+          movie_id: movieId,
+          stars: 0,
+          name: '',
+          text: '',
+        });
+      };
+  useEffect(() => {
+    console.log("REVIEWS updated:", reviews);
+  }, [initialReviewsArray]); 
+  
+ 
+
+  
 
 
   return (
@@ -67,14 +72,17 @@ const ReviewForm = ({ reviews, initialReviewsArray, setReviews, movieId, image }
       </div>
     
       <form onSubmit={handleSubmit}>
-      <div className="card-body">
+      <div className="card-body review-body">
         <img src={image}></img> <br></br><br></br>
           
           <label>
             Stars: <br></br>
+            <div className="stars">
             {generateStars()}
+            </div>
           </label>
-          <br />
+          
+          <br></br><br></br>
           <label>
             Name: <br></br>
             <input
@@ -96,8 +104,8 @@ const ReviewForm = ({ reviews, initialReviewsArray, setReviews, movieId, image }
           </label>
       </div>
         <br />
-      <div className="card-footer review-name">
-        <button type="submit">Add Review</button>
+      <div className="card-footer review-footer">
+        <button className="btn btn-primary" type="submit">Submit</button>
       </div>
       </form>
       
