@@ -2,7 +2,7 @@ import React from 'react';
 import Movie from './movie'
 import {useState} from 'react'
 
-export default function MovieList() {
+const MovieList = () => {
     let moviesArray = [
         {
             id: 1,
@@ -43,26 +43,39 @@ export default function MovieList() {
         
         const [movies, setMovies] = useState(moviesArray)
         
-        let reviewsArray = [
+        const initialReviewsArray = [
             {
                 id: 1,
                 movie_id: 1,
                 stars: '★★★★☆',
+                name: 'Murdawg',
                 text: 'Very good movie classic sci fi and hacking movie.',
+            },
+            {
+                id: 2,
+                movie_id: 1,
+                stars: '★★★★★',
+                name: 'anon',
+                text: `Independence Day blew me away with its awesome alien battles and Will Smith's badass heroics! Totally epic and definitely worth watching again!`,
+            },
+            {
+                id: 3,
+                movie_id: 2,
+                stars: '★★★★☆',
+                name: 'Jerry',
+                text: `"The Truman Show" captivated me with its thought-provoking premise and Jim Carrey's surprisingly deep performance. A compelling blend of satire and emotional depth that deserves multiple viewings!`,
             }
         ]
-        const [reviews, setReviews] = useState(reviewsArray)
+        const [reviews, setReviews] = useState(initialReviewsArray);
         //console.log(reviews)
         return (
-            <div className='container'>
-               {moviesArray.map((movie) =>{
-                return (
-                   <Movie key={movie.id} movie={movie} reviews={reviews} setReviews={setReviews}/>
-                )
-            }) 
-            };
-                
+            <div className="container">
+                {moviesArray.map((movie) => (
+                    <Movie key={movie.id} initialReviewsArray={initialReviewsArray} movie={movie} reviews={reviews} setReviews={setReviews} />
+                ))}
             </div>
+                
         );
     }
 
+export default MovieList;
